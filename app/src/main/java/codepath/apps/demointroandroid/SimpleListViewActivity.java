@@ -13,7 +13,7 @@ public class SimpleListViewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_simple_list_view);
 		String[] myStringArray = { "Bruce", "Wayne", "Bill" };
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
+		ArrayAdapter<String> adapter = new ArrayAdapter<>(this, 
 		  R.layout.simple_list_view_item, myStringArray);
 
 		ListView listView = (ListView) findViewById(R.id.lvDemo);

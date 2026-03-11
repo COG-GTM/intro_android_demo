@@ -1,5 +1,6 @@
 package codepath.apps.demointroandroid;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -25,8 +26,18 @@ public class TimePickerDemoActivity extends Activity {
 		return true;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void displayTime(View v) {
-		String time = tpTime.getCurrentHour() + ":" + tpTime.getCurrentMinute();
+		int hour;
+		int minute;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			hour = tpTime.getHour();
+			minute = tpTime.getMinute();
+		} else {
+			hour = tpTime.getCurrentHour();
+			minute = tpTime.getCurrentMinute();
+		}
+		String time = hour + ":" + minute;
 		Toast.makeText(this, time, Toast.LENGTH_SHORT).show();
 	}
 
