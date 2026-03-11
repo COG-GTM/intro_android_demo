@@ -24,7 +24,7 @@ public class ProgressBarActivity extends Activity {
 
     ProgressBar pb;
     TextView tvResult;
-    ArrayList<String> lines = new ArrayList<String>();
+    ArrayList<String> lines = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +89,10 @@ public class ProgressBarActivity extends Activity {
                 response = httpclient.newCall(new Request.Builder().url(address).build()).execute();
                 int statusCode = response.code();
                 if (statusCode == HttpStatus.HTTP_OK) {
-                    ByteArrayOutputStream out = new ByteArrayOutputStream();
-                    out.write(response.body().bytes());
-                    responseString = out.toString();
-                    out.close();
+                    try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+                        out.write(response.body().bytes());
+                        responseString = out.toString();
+                    }
                 } else {
                     response.body().byteStream().close();
                     throw new IOException(response.message());

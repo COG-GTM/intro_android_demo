@@ -26,7 +26,7 @@ public class TimePickerDemoActivity extends Activity {
 	}
 	
 	public void displayTime(View v) {
-		String time = tpTime.getCurrentHour() + ":" + tpTime.getCurrentMinute();
+		String time = tpTime.getHour() + ":" + tpTime.getMinute();
 		Toast.makeText(this, time, Toast.LENGTH_SHORT).show();
 	}
 

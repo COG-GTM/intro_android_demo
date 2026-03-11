@@ -25,7 +25,7 @@ public class ExerciseActivityMapper {
   }
   
   private void defineExerciseMappings() {
-	  exerciseClassMap = new HashMap<String, Class<? extends Activity>>();
+	  exerciseClassMap = new HashMap<>();
 	  // Chapter 1: App Fundamentals
 	  exerciseClassMap.put("chap1ex1", BasicTextViewActivity.class);
 	  // Chapter 2: User Interface

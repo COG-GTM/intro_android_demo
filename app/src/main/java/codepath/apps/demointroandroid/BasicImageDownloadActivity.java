@@ -35,15 +35,13 @@ public class BasicImageDownloadActivity extends Activity {
             url = null;
         }
 
-        URLConnection conn;
-        InputStream in;
         Bitmap bitmap;
         try {
-            conn = url.openConnection();
+            URLConnection conn = url.openConnection();
             conn.connect();
-            in = conn.getInputStream();
-            bitmap = BitmapFactory.decodeStream(in);
-            in.close();
+            try (InputStream in = conn.getInputStream()) {
+                bitmap = BitmapFactory.decodeStream(in);
+            }
         } catch (IOException e) {
             bitmap = null;
         }

@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 public class ContactListActivity extends Activity {
 
     private static final int REQUEST_READ_CONTACTS = 1;
-    ArrayList<String> names = new ArrayList<String>();
+    ArrayList<String> names = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +39,14 @@ public class ContactListActivity extends Activity {
     }
 
     private void populateListView() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, names);
 
         ListView listView = (ListView) findViewById(R.id.lvContacts);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ContactListActivity.this, names.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });
+        listView.setOnItemClickListener((parent, view, position, id) ->
+                Toast.makeText(ContactListActivity.this, names.get(position), Toast.LENGTH_SHORT).show()
+        );
     }
 
     @Override

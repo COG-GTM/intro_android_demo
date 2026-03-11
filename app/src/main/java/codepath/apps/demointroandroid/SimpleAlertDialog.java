@@ -2,7 +2,6 @@ package codepath.apps.demointroandroid;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 // SimpleAlertDialog.displayWithOK(this, "Hello", "Title");
 public class SimpleAlertDialog {
@@ -20,11 +19,8 @@ public class SimpleAlertDialog {
 		alertDialog.setMessage(message);
 
 		// Setting OK Button
-		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				alertDialog.hide();
-			}
-		});
+		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+				(dialog, which) -> alertDialog.hide());
 
 		// Showing Alert Message
 		alertDialog.show();

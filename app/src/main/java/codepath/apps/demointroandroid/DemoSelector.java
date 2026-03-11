@@ -37,20 +37,16 @@ public class DemoSelector extends Activity {
 		elvChapters = (ExpandableListView)findViewById(R.id.elvChapters);
 		elaAdapter = new ChaptersListAdapter();
 		elvChapters.setAdapter(elaAdapter);
-		elvChapters.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, long id) {
-				
-				String exerciseTitle =  (String)elaAdapter.getChild(groupPosition, childPosition);
-                Class<? extends Activity> exerciseClass = elaAdapter.getExerciseClass(groupPosition, childPosition, id);
-                if (exerciseClass != null) {
-                	Toast.makeText(DemoSelector.this, exerciseTitle, Toast.LENGTH_LONG).show();
-                	startActivity(new Intent(DemoSelector.this, exerciseClass));	
-                } else {
-                	Toast.makeText(DemoSelector.this, "Exercise Not Available", Toast.LENGTH_SHORT).show();
-                }
-				return false;
+		elvChapters.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+			String exerciseTitle = (String) elaAdapter.getChild(groupPosition, childPosition);
+			Class<? extends Activity> exerciseClass = elaAdapter.getExerciseClass(groupPosition, childPosition, id);
+			if (exerciseClass != null) {
+				Toast.makeText(DemoSelector.this, exerciseTitle, Toast.LENGTH_LONG).show();
+				startActivity(new Intent(DemoSelector.this, exerciseClass));
+			} else {
+				Toast.makeText(DemoSelector.this, "Exercise Not Available", Toast.LENGTH_SHORT).show();
 			}
+			return false;
 		});
 
 	}

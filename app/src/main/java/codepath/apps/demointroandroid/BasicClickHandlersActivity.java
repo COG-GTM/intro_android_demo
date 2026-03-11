@@ -13,12 +13,7 @@ public class BasicClickHandlersActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basic_click_handlers);
 		Button secondButton = (Button) findViewById(R.id.btnClick2);
-		secondButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				secondButtonClicked(v);
-			}
-		});
+		secondButton.setOnClickListener(this::secondButtonClicked);
 	}
 
 	@Override

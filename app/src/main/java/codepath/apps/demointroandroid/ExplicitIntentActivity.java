@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class ExplicitIntentActivity extends Activity {
@@ -15,13 +14,10 @@ public class ExplicitIntentActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_explicit_intent);
 		Button btnLaunchSecond = (Button) findViewById(R.id.btnLaunchSecond);
-		btnLaunchSecond.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(ExplicitIntentActivity.this, SimpleBundleDemoActivity.class);
-				i.putExtra("text", "Passed String Extra!");
-				startActivity(i);
-			}
+		btnLaunchSecond.setOnClickListener(v -> {
+			Intent i = new Intent(ExplicitIntentActivity.this, SimpleBundleDemoActivity.class);
+			i.putExtra("text", "Passed String Extra!");
+			startActivity(i);
 		});
 	}
 
