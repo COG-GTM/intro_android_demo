@@ -7,18 +7,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
 
-import androidx.annotation.Nullable;
-
-import com.codepath.asynchttpclient.AsyncHttpClient;
-import com.codepath.asynchttpclient.callback.BinaryHttpResponseHandler;
+import androidx.annotation.NonNull;
 
 import java.io.IOException;
 
-import okhttp3.Headers;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 
 
 public class SmartImageDownloadActivity extends Activity {
+
+    private final OkHttpClient client = new OkHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,28 +30,29 @@ public class SmartImageDownloadActivity extends Activity {
     }
 
     private void downloadSmartImageFromUrl(String address) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(address, new BinaryHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Headers headers, Response response) {
-                        try {
-                            byte[] image = response.body().bytes();
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-                            ImageView img = findViewById(R.id.ivSmartImage);
-                            img.setImageBitmap(bitmap);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, @Nullable Headers headers,
-                                          String errorResponse, @Nullable Throwable throwable) {
-
-                    }
+        Request request = new Request.Builder().url(address).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (!response.isSuccessful() || response.body() == null) {
+                    return;
                 }
-        );
+                final byte[] image = response.body().bytes();
+                final Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageView img = findViewById(R.id.ivSmartImage);
+                        img.setImageBitmap(bitmap);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
