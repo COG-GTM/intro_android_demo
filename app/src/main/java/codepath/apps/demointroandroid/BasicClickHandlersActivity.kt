@@ -25,6 +25,6 @@ class BasicClickHandlersActivity : Activity() {
     }
 
     private fun secondButtonClicked(v: View) {
-        SimpleAlertDialog.displayWithOK(this, "secondButton clicked via handler in onCreate")
+        SimpleAlertDialog.displayWithOK(this, "secondButton clicked via Java handler in onCreate")
     }
 }
